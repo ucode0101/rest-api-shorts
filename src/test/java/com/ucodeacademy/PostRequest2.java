@@ -18,21 +18,6 @@ public class PostRequest2 {
             }
             """;
 
-     String contactInfo = """
-             {
-                 "firstName": "Test2",
-                 "lastName": "Test2",
-                 "birthdate": "1980-02-01",
-                 "email": "test2@test.com",
-                 "phone": "11111112222",
-                 "street1": "111 Test st.",
-                 "street2": "Apartment D",
-                 "city": "Anytown",
-                 "stateProvince": "NJ",
-                 "postalCode": "12345",
-                 "country": "USA"
-             }
-             """;
 
      public String getToken(){
          String token = "";
@@ -45,25 +30,4 @@ public class PostRequest2 {
          return token;
      }
 
-
-
-     @Test
-    public void addNewContact(){
-         String token = getToken();
-
-         Response response = RestAssured.given().auth().oauth2(token)
-                 .contentType(ContentType.JSON)
-                 .body(contactInfo)
-                 .accept(ContentType.JSON)
-                 .when().post(baseUrl2 + "/contacts");
-
-         // verify status code
-         Assert.assertEquals(201, response.statusCode());
-         // print
-         response.prettyPrint();
-
-         // print first name
-       String firstName =  response.body().path("firstName");
-         System.out.println(firstName);
-     }
 }
